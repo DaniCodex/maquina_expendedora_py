@@ -38,15 +38,5 @@ maquina = {
         'nombre': "Frugos Valle",
         'precio': 2.2,
         'cantidad': 10
-    },
-    9: {
-        'nombre': "Frugos Valle",
-        'precio': 2.2,
-        'cantidad': 10
-    },
-    10: {
-        'nombre': "Frugos Valle",
-        'precio': 2.2,
-        'cantidad': 10
     }
 }

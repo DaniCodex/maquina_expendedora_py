@@ -91,10 +91,10 @@ def verDinero():
 def modificarPrecio():
     limpiarTerminal()
     verProductos()
-    id_producto = int(input("Ingrese el ID del producto a modificar: "))
-    if id_producto in maquina:
-        nuevo_precio = float(input("Ingrese el nuevo precio: "))
-        maquina[id_producto]['precio'] = nuevo_precio
+    IDProducto = int(input("Ingrese el ID del producto a modificar: "))
+    if IDProducto in maquina:
+        nuevoPrecio = float(input("Ingrese el nuevo precio: "))
+        maquina[IDProducto]['precio'] = nuevoPrecio
         print("Precio modificado con éxito.")
     else:
         print("ID de producto no encontrado.")
@@ -103,10 +103,10 @@ def modificarPrecio():
 def modificarCantidad():
     limpiarTerminal()
     verProductos()
-    id_producto = int(input("Ingrese el ID del producto a modificar: "))
-    if id_producto in maquina:
-        nueva_cantidad = int(input("Ingrese la nueva cantidad: "))
-        maquina[id_producto]['cantidad'] = nueva_cantidad
+    IDProducto = int(input("Ingrese el ID del producto a modificar: "))
+    if IDProducto in maquina:
+        nuevaCantidad = int(input("Ingrese la nueva cantidad: "))
+        maquina[IDProducto]['cantidad'] = nuevaCantidad
         print("Cantidad modificada con éxito.")
     else:
         print("ID de producto no encontrado.")
@@ -115,20 +115,20 @@ def modificarCantidad():
 def agregarProducto():
     limpiarTerminal()
     verProductos()
-    id_producto = int(input("Ingrese el nuevo ID del producto: "))
+    IDProducto = int(input("Ingrese el nuevo ID del producto: "))
     nombre = input("Ingrese el nombre del producto: ")
     precio = float(input("Ingrese el precio del producto: "))
     cantidad = int(input("Ingrese la cantidad del producto: "))
-    maquina[id_producto] = {'nombre': nombre, 'precio': precio, 'cantidad': cantidad}
+    maquina[IDProducto] = {'nombre': nombre, 'precio': precio, 'cantidad': cantidad}
     print("Producto agregado con éxito.")
     time.sleep(2)
 
 def eliminarProducto():
     limpiarTerminal()
     verProductos()
-    id_producto = int(input("Ingrese el ID del producto a eliminar: "))
-    if id_producto in maquina:
-        del maquina[id_producto]
+    IDProducto = int(input("Ingrese el ID del producto a eliminar: "))
+    if IDProducto in maquina:
+        del maquina[IDProducto]
         print("Producto eliminado con éxito.")
     else:
         print("ID de producto no encontrado.")
@@ -140,8 +140,8 @@ def administrarDinero():
 
     idDinero = int(input("Ingrese el ID del precio a modificar: "))
     if idDinero in maquina:
-        nueva_cantidad = int(input("Ingrese la nueva cantidad: "))
-        monedas[idDinero]['cantidad'] = nueva_cantidad
+        nuevaCantidad = int(input("Ingrese la nueva cantidad: "))
+        monedas[idDinero]['cantidad'] = nuevaCantidad
         print("Dinero modificada con éxito.")
     else:
         print("ID de producto no encontrado.")
@@ -161,7 +161,14 @@ def comprobarDinero(dinero):
         print("🚫 POR FAVOR INGRESE UN MONTO  REAL")
         print("-----------------------------------------------------")
         return False
-        
+
+def sumarDineroDB(montoIngresado):
+     for i in range(1, 11):
+        if montoIngresado == monedas[i]['tipo']:
+            print("desde el if")
+            monedas[i]['cantidad'] += montoIngresado
+            break
+
 def interfazMaquina():
     global divisa, dineroIngresado, id
     limpiarTerminal()
@@ -198,6 +205,8 @@ def interfazMaquina():
 
     dineroIngresado = float(input("💸 INGRESE SU DINERO: "))
 
+    sumarDineroDB(dineroIngresado)
+
     while (not comprobarDinero(dineroIngresado)):
         dineroIngresado = float(input("💸 INGRESE SU DINERO: "))
 
@@ -207,7 +216,8 @@ def interfazMaquina():
     
 interfazMaquina()
 
-def contadorBilletes(monto, cantidad):
+
+def restarDineroDB(monto, cantidad):
     for i in range(1, 11):
         if monto == monedas[i]['tipo']:
             monedas[i]['cantidad'] -= cantidad
@@ -227,8 +237,9 @@ def devolverProducto(pagoTotal, vueltoTotal):
         if cantidad > 0:
             vueltoEfectivo.append(f"{cantidad} moneda(s) de {monto} soles")
             vuelto -= cantidad * monto
-            contadorBilletes(monto, cantidad)
+            restarDineroDB(monto, cantidad)
     
+    input("enter para continuar")
     print("⏳ Procesando....")
     time.sleep(random.randint(1, 5))
     print("🖨️ Imprimiendo boleta...")
