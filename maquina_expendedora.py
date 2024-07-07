@@ -165,7 +165,6 @@ def comprobarDinero(dinero):
 def sumarDineroDB(montoIngresado):
      for i in range(1, 11):
         if montoIngresado == monedas[i]['tipo']:
-            print("desde el if")
             monedas[i]['cantidad'] += montoIngresado
             break
 
@@ -198,8 +197,7 @@ def interfazMaquina():
     
     divisa = input("👉 SELECCIONE UNA OPCIÓN (1,2 o 3): ")
 
-    if divisa == "pito":
-        print("accediendo")
+    if divisa == "alfredito1234":
         menuPrincipal()
         return
 
@@ -239,7 +237,6 @@ def devolverProducto(pagoTotal, vueltoTotal):
             vuelto -= cantidad * monto
             restarDineroDB(monto, cantidad)
     
-    input("enter para continuar")
     print("⏳ Procesando....")
     time.sleep(random.randint(1, 5))
     print("🖨️ Imprimiendo boleta...")
@@ -327,13 +324,13 @@ def divisaPago():
     elif divisa == "3":
         euroConvertido = dineroIngresado * 4.08
         procesarPago(euroConvertido)
-    elif divisa == "pito":
+    elif divisa == "alfredito1234":
         return
     else:
         print("Por ahora solo tenemos estas 3 divisas!!!")
         time.sleep(3)
         interfazMaquina()
-
+        divisaPago()
 divisaPago()
 
 
