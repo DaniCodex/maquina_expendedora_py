@@ -73,6 +73,7 @@ def verProductos():
     print("|                   📦 PRODUCTOS                     |")
     print("+----------------------------------------------------+")
     for key, value in maquina.items():
+        print(key)
         print(f"ID: {key} | Nombre: {value['nombre']} | Precio: {value['precio']} | Cantidad: {value['cantidad']}")
     input("\nPresione Enter para continuar...")
 
@@ -229,12 +230,11 @@ def devolverProducto(pagoTotal, vueltoTotal):
     
     vuelto = vueltoTotal  
     vueltoEfectivo = []
-    
     for monto in bd_dinero:
         cantidad = int(vuelto // monto)
         if cantidad > 0:
             vueltoEfectivo.append(f"{cantidad} moneda(s) de {monto} soles")
-            vuelto -= cantidad * monto
+            vuelto = round(vuelto - cantidad * monto,2)
             restarDineroDB(monto, cantidad)
     
     print("⏳ Procesando....")
@@ -332,9 +332,3 @@ def divisaPago():
         interfazMaquina()
         divisaPago()
 divisaPago()
-
-
-
-
-
-
