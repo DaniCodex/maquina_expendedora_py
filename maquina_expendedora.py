@@ -62,7 +62,8 @@ def administrarBD():
         elif opcion == "7":
             administrarDinero()
         elif opcion == "8":
-            break
+            interfazMaquina()
+            divisaPago()
         else:
             print("Opción no válida, intente de nuevo.")
             time.sleep(2)
@@ -79,14 +80,23 @@ def verProductos():
 
 def verDinero():
     limpiarTerminal()
-    print("+----------------------------------------------------+")
-    print("|              💵 ADMINISTRAR DINERO                 |")
-    print("|----------------------------------------------------|")
-    print(f"|{monedas[1]['tipo']}-->{monedas[1]['cantidad']}   {monedas[2]['tipo']}-->{monedas[2]['cantidad']}           |")
-    print(f"|{monedas[3]['tipo']}-->{monedas[3]['cantidad']}   {monedas[4]['tipo']}-->{monedas[4]['cantidad']}           |")
-    print(f"|{monedas[5]['tipo']}--> {monedas[5]['cantidad']}   {monedas[6]['tipo']}-->{monedas[6]['cantidad']}          |")
-    print(f"|{monedas[7]['tipo']}--> {monedas[7]['cantidad']}   {monedas[8]['tipo']}-->{monedas[8]['cantidad']}          |")
-    print(f"|{monedas[9]['tipo']}--> {monedas[9]['cantidad']}   {monedas[10]['tipo']}-->{monedas[10]['cantidad']}        |")
+    print("+---------------------------+")
+    print("|  💵 ADMINISTRAR DINERO    |")
+    print("|---------------------------|")
+    print(f"| ID    DINERO    CANTIDAD  |")
+    print("|---------------------------|")
+    print(f"|  1 |   {monedas[1]['tipo']}   |    {monedas[1]['cantidad']}     |")
+    print(f"|  2 |   {monedas[2]['tipo']}    |    {monedas[2]['cantidad']}     |")
+    print(f"|  3 |   {monedas[3]['tipo']}    |    {monedas[3]['cantidad']}     |")
+    print(f"|  4 |   {monedas[4]['tipo']}    |    {monedas[4]['cantidad']}     |")
+    print(f"|  5 |   {monedas[5]['tipo']}     |    {monedas[5]['cantidad']}     |")
+    print(f"|  6 |   {monedas[6]['tipo']}     |    {monedas[6]['cantidad']}     |")
+    print(f"|  7 |   {monedas[7]['tipo']}     |    {monedas[7]['cantidad']}     |")
+    print(f"|  8 |   {monedas[8]['tipo']}   |    {monedas[8]['cantidad']}     |")
+    print(f"|  9 |   {monedas[9]['tipo']}   |    {monedas[9]['cantidad']}     |")
+    print(f"| 10 |   {monedas[10]['tipo']}   |    {monedas[10]['cantidad']}     |")
+    print("|---------------------------|")
+
     input("\nPresione Enter para continuar...")
 
 def modificarPrecio():
@@ -208,6 +218,7 @@ def interfazMaquina():
 
     while (not comprobarDinero(dineroIngresado)):
         dineroIngresado = float(input("💸 INGRESE SU DINERO: "))
+        sumarDineroDB(dineroIngresado)
 
     id = int(input("🍾 SELECCIONE SU PRODUCTO: "))
 
@@ -277,6 +288,7 @@ def solicitarDineroAdicional():
             dineroFaltante = float(input("Ingrese un monto válido: "))
         else:
             dineroSuma += dineroFaltante
+        
             if dineroSuma == maquina[id]["precio"]:
                 vuelto = 0
                 maquina[id]['cantidad'] -= 1
@@ -303,9 +315,19 @@ def manejarDineroInsuficiente():
 
     if dineroExtra == "1":
         solicitarDineroAdicional()
-    else: 
+    elif dineroExtra == "2":
         print("-----------------------------------------------------")
         print("Recoga su dinero de la máquina")
+        print("")
+        time.sleep(3)
+        interfazMaquina()
+        divisaPago()
+    else: 
+        print("-----------------------------------------------------")
+        print("Opción no válida")
+        time.sleep(3)
+        interfazMaquina()
+        divisaPago()
         print("")
 
 def procesarPago(montoIngresado):
