@@ -31,7 +31,7 @@ maquina = {
     },
     7: {
         'nombre': "Inka-kola cero",
-        'precio': 3,
+        'precio': 5,
         'cantidad': 10
     },
     8: {

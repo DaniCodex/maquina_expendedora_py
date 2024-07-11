@@ -166,7 +166,7 @@ def comprobarDinero(dinero):
 def sumarDineroDB(montoIngresado):
      for i in range(1, 11):
         if montoIngresado == monedas[i]['tipo']:
-            monedas[i]['cantidad'] += montoIngresado
+            monedas[i]['cantidad'] += 1
             break
 
 def interfazMaquina():
@@ -233,7 +233,12 @@ def devolverProducto(pagoTotal, vueltoTotal):
     for monto in bd_dinero:
         cantidad = int(vuelto // monto)
         if cantidad > 0:
-            vueltoEfectivo.append(f"{cantidad} moneda(s) de {monto} soles")
+            if monto in [100, 50, 20, 10]:
+                vueltoEfectivo.append(f"{cantidad} billete(s) de {monto} soles")
+            elif monto in [0.50,0.20,0.10]:
+                vueltoEfectivo.append(f"{cantidad} moneda(s) de {monto} centimos")
+            else:
+                vueltoEfectivo.append(f"{cantidad} moneda(s) de {monto} soles")
             vuelto = round(vuelto - cantidad * monto,2)
             restarDineroDB(monto, cantidad)
     
